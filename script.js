@@ -1,6 +1,6 @@
-const USER = "admin";
+const USER = "Елена";
 
-const PASS = "12345";
+const PASS = "2407";
 
 function login(){
 
