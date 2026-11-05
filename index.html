@@ -420,70 +420,47 @@ footer {
 
 <script>
 
+
 // ======================================
 // МУЗЫКА
 // ======================================
 
-const birthdayMusic =
-    document.getElementById("birthdayMusic");
-
-const button =
-    document.getElementById("musicButton");
-
-const musicHint =
-    document.getElementById("musicHint");
+const birthdayMusic = document.getElementById("birthdayMusic");
+const button = document.getElementById("musicButton");
+const musicHint = document.getElementById("musicHint");
 
 let playing = false;
 
-
-// Включение музыки
-
 async function startMusic() {
-
     try {
-
         await birthdayMusic.play();
 
         playing = true;
-
         button.textContent = "Ⅱ Выключить музыку";
-
         musicHint.textContent = "Музыка играет ❤️";
 
     } catch (error) {
-
         playing = false;
 
         musicHint.textContent =
             "Не удалось запустить музыку. Проверь файл music.mp3 и нажми кнопку ещё раз.";
-
     }
-
 }
 
-
-// Кнопка включения и выключения
+// Включение и выключение музыки
 
 button.addEventListener("click", async () => {
-
     if (playing) {
-
         birthdayMusic.pause();
-
         playing = false;
 
         button.textContent = "♫ Включить музыку";
-
         musicHint.textContent = "Музыка остановлена.";
 
     } else {
-
         await startMusic();
-
     }
-
 });
-
 
 // ======================================
 // ВХОД В ПОЗДРАВЛЕНИЕ
@@ -507,70 +484,43 @@ document.getElementById("loginForm").addEventListener(
             recipient.charAt(0).toLocaleUpperCase("ru-RU") +
             recipient.slice(1);
 
-        // Имя меняется только здесь
+        // Меняем только обращение
+
         document.getElementById("recipientEyebrow").textContent =
             "Самому дорогому: " + greetingName;
 
-        // Текст поздравления не трогаем!
+        // Скрываем экран входа
 
         document.getElementById("loginScreen").hidden = true;
+
+        // Показываем открытку
 
         document.getElementById("greetingCard").hidden = false;
 
         document.getElementById("greetingCard").focus({
             preventScroll: true
-        }
+        });
+
+        // Запускаем музыку
 
         await startMusic();
     }
 );
-
-        // Запускаем музыку при входе
-        await startMusic();
-
-    }
-);
-
-
-// ======================================
-// ЗАЩИТА ИМЕНИ
-// ======================================
-
-function escapeHtml(value) {
-
-    return value.replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[char]);
-
-}
-
 
 // ======================================
 // АНИМАЦИЯ ИСКР
 // ======================================
 
 for (let i = 0; i < 28; i++) {
-
     const s = document.createElement("i");
 
     s.className = "spark";
-
     s.style.left = Math.random() * 100 + "%";
-
-    s.style.animationDuration =
-        (6 + Math.random() * 9) + "s";
-
-    s.style.animationDelay =
-        (-Math.random() * 12) + "s";
+    s.style.animationDuration = (6 + Math.random() * 9) + "s";
+    s.style.animationDelay = (-Math.random() * 12) + "s";
 
     document.body.appendChild(s);
-
 }
-
 
 // ======================================
 // КОНФЕТТИ
@@ -584,23 +534,15 @@ const colors = [
 ];
 
 for (let i = 0; i < 34; i++) {
-
     const c = document.createElement("i");
 
     c.className = "confetti";
-
     c.style.left = Math.random() * 100 + "%";
-
     c.style.background = colors[i % colors.length];
-
-    c.style.animationDuration =
-        (7 + Math.random() * 8) + "s";
-
-    c.style.animationDelay =
-        (-Math.random() * 12) + "s";
+    c.style.animationDuration = (7 + Math.random() * 8) + "s";
+    c.style.animationDelay = (-Math.random() * 12) + "s";
 
     document.body.appendChild(c);
-
 }
 
 </script>
