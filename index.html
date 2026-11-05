@@ -333,6 +333,14 @@ footer {
         <label for="recipientInput">
             Как к тебе обращаться?
         </label>
+        <input
+    id="recipientInput"
+    type="text"
+    placeholder="Введите своё имя"
+    maxlength="32"
+    autocomplete="name"
+    required
+>
 
         <button type="submit">
             Войти в поздравление →
@@ -487,43 +495,35 @@ document.getElementById("loginForm").addEventListener(
 
         event.preventDefault();
 
-        const field =
-            document.getElementById("recipientInput");
+        const field = document.getElementById("recipientInput");
+        const recipient = field.value.trim();
 
-        const recipient =
-            field.value.trim() || "Дедушка";
+        if (!recipient) {
+            field.focus();
+            return;
+        }
 
         const greetingName =
             recipient.charAt(0).toLocaleUpperCase("ru-RU") +
             recipient.slice(1);
 
+        // Имя меняется только здесь
         document.getElementById("recipientEyebrow").textContent =
             "Самому дорогому: " + greetingName;
 
-        const message =
-            document.getElementById("birthdayMessage");
+        // Текст поздравления не трогаем!
 
-        const safeName = escapeHtml(greetingName);
-
-        message.innerHTML =
-            "<strong>" + safeName +
-            ", поздравляем тебя с Днем рождения!</strong> " +
-            "Желаем крепкого здоровья, долгих и счастливых лет, " +
-            "душевного спокойствия и побольше радостных моментов. " +
-            "Пусть рядом всегда будут близкие люди, каждый день " +
-            "приносит хорошие новости, а в доме царят тепло, уют и улыбки." +
-            "<br><br>" +
-            "<strong>Спасибо за твою заботу, мудрость и доброту!</strong>";
-
-        // Скрываем экран входа
         document.getElementById("loginScreen").hidden = true;
 
-        // Показываем открытку
         document.getElementById("greetingCard").hidden = false;
 
         document.getElementById("greetingCard").focus({
             preventScroll: true
-        });
+        }
+
+        await startMusic();
+    }
+);
 
         // Запускаем музыку при входе
         await startMusic();
